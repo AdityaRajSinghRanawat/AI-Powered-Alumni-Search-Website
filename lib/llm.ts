@@ -5,7 +5,7 @@ import { StructuredOutputParser } from "langchain/output_parsers";
 import { z } from "zod";
 
 const llmApi = async (description: string) => {
-  const key = process.env.GOOGLE_API_KEY || process.env.VITE_GOOGLE_API_KEY;
+  const key = process.env.NEXT_PUBLIC_GROQ_API_KEY;
 
   const llm = new ChatGroq({
     apiKey: key,
@@ -29,14 +29,14 @@ const llmApi = async (description: string) => {
   const chain = RunnableSequence.from([
     PromptTemplate.fromTemplate(
       `You are extracting structured filters from user queries about alumni.
-Always return JSON strictly matching the schema.
-there maybe chances that user mi type something so you need to autocorrect the locations 
-- If the query mentions a place (e.g., "in Japan"), map it to "location".
-- If the query mentions a company, map it to "company".
-- If the query mentions a college, map it to "college".
-- If the query mentions skills, map them into the "skills" array.
-- If the query mentions a year, map to "join_year" or "passing_year".
-- If the query mentions a role, map to "role".
+      Always return JSON strictly matching the schema.
+      there maybe chances that user mi type something so you need to autocorrect the locations 
+      - If the query mentions a place (e.g., "in Japan"), map it to "location".
+      - If the query mentions a company, map it to "company".
+      - If the query mentions a college, map it to "college".
+      - If the query mentions skills, map them into the "skills" array.
+      - If the query mentions a year, map to "join_year" or "passing_year".
+      - If the query mentions a role, map to "role".
 
 Schema: {format_instruction}
 Query: {description}`
