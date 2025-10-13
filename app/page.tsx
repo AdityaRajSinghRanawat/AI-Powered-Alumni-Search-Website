@@ -3,9 +3,24 @@
 import { useState } from "react";
 import logo from "../public/homeLogo.png";
 
+// Define a type for each alumni object
+interface Alumni {
+  id: string | number;
+  name: string;
+  photo?: string;
+  college: string;
+  join_year: number;
+  passing_year: number;
+  company: string;
+  role: string;
+  location: string;
+  skills: string[];
+  linkedin?: string;
+}
+
 export default function Home() {
   const [searchInput, setSearchInput] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<Alumni[]>([]); // Typed instead of any[]
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async () => {
@@ -15,8 +30,9 @@ export default function Home() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ post: searchInput }),
     });
+
     const data = await res.json();
-    setResults(Array.isArray(data) ? data : []);
+    setResults(Array.isArray(data) ? data : []); // TypeScript ensures data matches Alumni[]
     setLoading(false);
   };
 
