@@ -28,7 +28,7 @@ export default function Home() {
 
       <textarea
         className="w-full border p-3 rounded mb-4"
-        placeholder="Example: Looking for alumni from Google in Japan skilled in AI"
+        placeholder="Example: Looking for alumni from Delhi working at Canva"
         rows={3}
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
