@@ -5,7 +5,8 @@ import { StructuredOutputParser } from "langchain/output_parsers";
 import { z } from "zod";
 
 const llmApi = async (description: string) => {
-  const key = process.env.NEXT_PUBLIC_GROQ_API_KEY;
+  const key = process.env.GROQ_API_KEY ?? process.env.NEXT_PUBLIC_GROQ_API_KEY;
+  if (!key) throw new Error("GROQ API key missing (process.env.GROQ_API_KEY)");
 
   const llm = new ChatGroq({
     apiKey: key,
