@@ -1,6 +1,5 @@
 import { PromptTemplate } from "@langchain/core/prompts";
 import { RunnableSequence } from "@langchain/core/runnables";
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
 import { ChatGroq } from "@langchain/groq";
 import { StructuredOutputParser } from "langchain/output_parsers";
 import { z } from "zod";
@@ -46,7 +45,7 @@ Query: {description}`
     parser,
   ]);
 
-  let response = await chain.invoke({
+  const response = await chain.invoke({
     description,
     format_instruction: parser.getFormatInstructions(),
   });
@@ -62,7 +61,7 @@ Query: {description}`
     if (value && typeof value === "string") {
       const parsed = parseInt(value, 10);
       if (!isNaN(parsed)) {
-        response[field] = parsed as any;
+        response[field] = parsed;
       }
     }
   });
